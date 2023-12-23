@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.none{
+    display: none;
+}
+
+
+/* .btn {
+    @apply inline-block transition-colors px-4 py-1 rounded-lg border-0  focus:outline-none cursor-pointer shadow-md;
+} */
+
+
+.btn.disabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+
+.btn-secondary {
+    @apply btn border-0 bg-gray-100 hover:bg-gray-200;
+}
+
+.btn-danger {
+    @apply btn border-0 bg-red-500 hover:bg-red-600;
+}
+
+.btn-success {
+    @apply btn border-0 bg-green-600 hover:bg-green-700 text-white;
+}
+
+h1 {
+    @apply text-4xl font-semibold;
+}
+
+.sidebar-item{
+    @apply relative flex items-center justify-center h-12 w-12 rounded-2xl hover:rounded-3xl text-2xl mx-auto my-2 cursor-pointer transition-all duration-200 ease-linear;
+}
+
+.sidebar-tooltip{
+    @apply absolute w-auto p-2 m-2 min-w-max left-12 rounded-md shadow-md  text-xs font-bold transition-all duration-200 scale-0 origin-left;
+}
+
+.sidebar-item.active{
+    @apply rounded-3xl hover:border-purple-600 border-l-4;
+    border-left: 3px solid white !important;
+}
+
+
+.sidebar-tooltipItem{
+    @apply flex items-center p-0 justify-start rounded-md cursor-pointer transition-all duration-100 ease-linear;
+}
+
+.sidebar-tooltipItem.active{
+    @apply rounded-md cursor-pointer transition-all duration-100 ease-linear;
+}
+
+.sidebar-item:hover,.sidebar-item:has(.sidebar-tooltipItem.active) {
+    @apply rounded-3xl hover:border-purple-600 border-l-4;
+    border-left: 3px solid white;
+}
+
+.errmsg {
+    @apply text-red-100 bg-red-500 p-2 rounded;
+}
+
+  
+  
+/* .input {
+    @apply border sm:text-sm rounded-lg block w-full p-2.5;
+} */
+
+.badge, input[type="checkbox"] {
+    @apply rounded-lg;
+}
+
+@media (min-width: 640px) {
+    .sm\:grid-cols-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .sm\:none {
+        display: none;
+    }
+}
+
+
+dialog{
+    @apply transition-opacity duration-200 ease-linear;
+    backdrop-filter: blur(15px);
+}
+
+.selected{
+    @apply bg-purple-600 text-white;
+}
