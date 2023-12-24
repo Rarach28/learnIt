@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { axios, axi_url } from "../api/axios";
 
 export default function Stats() {
   const [stats, setStats] = useState({});
@@ -8,7 +8,7 @@ export default function Stats() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4050/api/stats/${id}`, { withCredentials: true })
+      .get(`${axi_url}/api/stats/${id}`, { withCredentials: true })
       .then((response) => setStats(response.data.data.testRuns))
       .catch((error) => console.error(error));
   }, [id]);
