@@ -28,7 +28,8 @@ function AuthWrapper({ children }) {
   useEffect(() => {
     const verifyCookie = async () => {
       if (!cookies.token) {
-        navigate("/login");
+        console.log("No cookie found");
+        // navigate("/login");
         return;
       }
 

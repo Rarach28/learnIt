@@ -62,7 +62,7 @@ app.use((err, req, res, next) => {
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://wellick.cz/"], // Add other allowed origins as needed
+    origin: ["http://localhost:3000", "https://wellick.cz"], // Add other allowed origins as needed
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
