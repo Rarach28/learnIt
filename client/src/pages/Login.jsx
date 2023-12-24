@@ -30,8 +30,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        axi_url + "/login",
+      const data = await axios.post(
+        axi_url + "login",
         {
           ...inputValue,
         },

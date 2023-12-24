@@ -31,14 +31,12 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        axi_url + "/signup",
-        {
-          ...inputValue,
-        },
+      const data = await axios.post(
+        axi_url + "signup",
+        { ...inputValue },
         { withCredentials: true }
       );
-      const { success, message } = data;
+      const { success, message } = data.data;
       if (success) {
         handleSuccess(message);
         setTimeout(() => {

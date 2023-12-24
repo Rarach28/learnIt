@@ -9,22 +9,31 @@ module.exports.Signup = async (req, res, next) => {
     const { email, password, username } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.json({ message: "User already exists" });
+      return res.json({ data: { data: {}, message: "User already exists" } });
     }
     const user = await User.create({
-      email,
-      password,
-      username,
-      createdAt: new Date.now(),
+      email: email,
+      password: password,
+      username: username,
+      blocked: false,
+      role_id: null,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
     });
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
       withCredentials: true,
       httpOnly: false,
     });
-    res
-      .status(201)
-      .json({ message: "User signed in successfully", success: true, user });
+    res.status(201).json({
+      data: {
+        data: {
+          success: true,
+          user,
+        },
+        message: "User signed in successfully",
+      },
+    });
     next();
   } catch (error) {
     console.error(error);
@@ -35,18 +44,25 @@ module.exports.Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.json({ message: "All fields are required" });
+      return res.json({
+        data: { data: {}, message: "All fields are required" },
+      });
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.json({ message: "Incorrect password or email" });
+      return res.json({
+        data: { data: {}, message: "Incorrect password or email" },
+      });
     }
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
       return res.json({
-        message: "Incorrect password or email",
-        pass: password,
-        userpass: user.password,
+        data: {
+          data: {},
+          message: "Incorrect password or email",
+          pass: password,
+          userpass: user.password,
+        },
       });
     }
     const token = createSecretToken(user._id);
@@ -54,9 +70,9 @@ module.exports.Login = async (req, res, next) => {
       withCredentials: true,
       httpOnly: false,
     });
-    res
-      .status(201)
-      .json({ message: "User logged in successfully", success: true });
+    res.status(201).json({
+      data: { data: {}, message: "User logged in successfully", success: true },
+    });
     next();
   } catch (error) {
     console.error(error);

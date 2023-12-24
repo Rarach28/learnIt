@@ -12,7 +12,7 @@ export default function Learn() {
 
   useEffect(() => {
     axios
-      .get(`${axi_url}/api/learn/${id}`)
+      .get(`${axi_url}api/learn/${id}`)
       .then((response) => {
         setSet(response.set);
         setQuestions(response.set.questions);

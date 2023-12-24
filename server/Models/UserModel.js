@@ -55,12 +55,12 @@ const roleSchema = new mongoose.Schema({
     default: null,
   },
 });
-
 const User = mongoose.model("User", userSchema);
+module.exports = User;
+
 // const UserPermission = mongoose.model("UserPermission", userPermissionSchema);
 // const Role = mongoose.model("Role", roleSchema);
 
-module.exports = User;
 // module.exports = mongoose.model("UserPermission", userPermissionSchema);
 // module.exports = mongoose.model("Role", roleSchema);
 

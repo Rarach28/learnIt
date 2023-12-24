@@ -3015,8 +3015,16 @@ html{
   top: -5px;
 }
 
+.bottom-0{
+  bottom: 0px;
+}
+
 .z-\[900000\]{
   z-index: 900000;
+}
+
+.z-50{
+  z-index: 50;
 }
 
 .col-span-full{
@@ -3045,6 +3053,10 @@ html{
 
 .m-0{
   margin: 0px;
+}
+
+.m-3{
+  margin: 0.75rem;
 }
 
 .mx-1{
@@ -3112,6 +3124,10 @@ html{
 
 .ml-3{
   margin-left: 0.75rem;
+}
+
+.ms-2{
+  margin-inline-start: 0.5rem;
 }
 
 .block{
@@ -3256,6 +3272,14 @@ html{
   max-width: 28rem;
 }
 
+.grow{
+  flex-grow: 1;
+}
+
+.grow-0{
+  flex-grow: 0;
+}
+
 .list-disc{
   list-style-type: disc;
 }
@@ -3315,6 +3339,10 @@ html{
 
 .gap-5{
   gap: 1.25rem;
+}
+
+.gap-3{
+  gap: 0.75rem;
 }
 
 .gap-x-2{

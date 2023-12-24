@@ -8,8 +8,10 @@ export default function Stats() {
 
   useEffect(() => {
     axios
-      .get(`${axi_url}/api/stats/${id}`, { withCredentials: true })
-      .then((response) => setStats(response.data.data.testRuns))
+      .get(`${axi_url}api/stats/${id}`, {
+        withCredentials: true,
+      })
+      .then((response) => setStats(response.testRuns))
       .catch((error) => console.error(error));
   }, [id]);
 
@@ -18,7 +20,7 @@ export default function Stats() {
     return <div>Loading...</div>;
   }
 
-  //   return "FAS";
+  //   return JSON.stringify(stats);
   return (
     <div className="container mx-auto px-4">
       <h2 className="font-bold text-4xl mt-2">Statistics</h2>
@@ -31,13 +33,14 @@ export default function Stats() {
           </tr>
         </thead>
         <tbody>
-          {stats.map((stat) => (
-            <tr key={stat._id}>
-              <td>{new Date(stat.start).toLocaleDateString()}</td>
-              <td>{formatDuration(stat.start, stat.finish)}</td>
-              <td>{stat.result ? stat.result.score * 100 + "%" : "-"}</td>
-            </tr>
-          ))}
+          {JSON.stringify(stats) != "{}" &&
+            stats.map((stat) => (
+              <tr key={stat._id}>
+                <td>{new Date(stat.start).toLocaleDateString()}</td>
+                <td>{formatDuration(stat.start, stat.finish)}</td>
+                <td>{stat.result ? stat.result.score * 100 + "%" : "-"}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
