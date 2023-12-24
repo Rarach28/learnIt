@@ -48,11 +48,11 @@ axiosInstance.interceptors.response.use(
 const axi_url = "http://localhost:4050/";
 
 axiosInstance.getSets = function () {
-  return this.get("http://localhost:4050/api/sets"); // replace with your API endpoint
+  return this.get(axi_url + "api/sets"); // replace with your API endpoint
 };
 
 axiosInstance.getSetByNumber = function (setNumber) {
-  return this.get("http://localhost:4050/api/sets/" + setNumber); // replace with your API endpoint
+  return this.get(axi_url + "api/sets/" + setNumber); // replace with your API endpoint
 };
 
 export { axiosInstance as axios, axi_url };

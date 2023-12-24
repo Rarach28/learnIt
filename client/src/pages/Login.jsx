@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axios, axi_url } from "../api/axios";
 import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
@@ -30,8 +30,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "http://localhost:4050/login",
+      const data = await axios.post(
+        axi_url + "login",
         {
           ...inputValue,
         },

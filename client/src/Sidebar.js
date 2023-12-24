@@ -9,7 +9,7 @@ import {
   useMatch,
   useResolvedPath,
 } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useState } from "react";
 // import { userMiddleware } from "../../middleware/User";
 
 import { IoIosStats } from "react-icons/io";
@@ -27,6 +27,7 @@ import { MdMonitor } from "react-icons/md";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { ImBooks } from "react-icons/im";
 import { BiSolidDashboard } from "react-icons/bi";
+import { TiThMenu } from "react-icons/ti";
 
 // export async function loader({ request }) {
 //   const url = new URL(request.url);
@@ -72,6 +73,11 @@ function loadSbItems() {
 const Sidebar = ({ username, Logout }) => {
   //   const navigation = useNavigation();
   const { sbItems, sbItemsBottom } = loadSbItems();
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+
+  const toggleSideBar = () => {
+    setIsSideBarOpen(!isSideBarOpen);
+  };
 
   const SideBarItem = ({ icon, children, to = "#", nested = [] }) => {
     const fullCurrentPath = useResolvedPath(to);
@@ -161,22 +167,41 @@ const Sidebar = ({ username, Logout }) => {
   };
 
   return (
-    <div className="top-0 left-0 h-screen w-16 m-0 flex flex-col shadow-lg justify-between pb-2 border-r-2">
-      <div>
-        {Object.keys(sbItems).map((name) => (
-          <SideBarItem key={name} {...sbItems[name]}>
-            {name}
-          </SideBarItem>
-        ))}
+    <>
+      <div
+        className={
+          "top-0 left-0 h-screen w-16 m-0 flex flex-col shadow-lg justify-between pb-2 border-r-2 " +
+          (isSideBarOpen ? "" : "none")
+        }
+      >
+        <div>
+          {Object.keys(sbItems).map((name) => (
+            <SideBarItem key={name} {...sbItems[name]}>
+              {name}
+            </SideBarItem>
+          ))}
+        </div>
+        <div>
+          {Object.keys(sbItemsBottom).map((name) => (
+            <SideBarItem key={name} {...sbItemsBottom[name]}>
+              {name}
+            </SideBarItem>
+          ))}
+          <button className="bg-primary w-full" onClick={toggleSideBar}>
+            <TiThMenu className="w-full" />
+          </button>
+        </div>
       </div>
-      <div>
-        {Object.keys(sbItemsBottom).map((name) => (
-          <SideBarItem key={name} {...sbItemsBottom[name]}>
-            {name}
-          </SideBarItem>
-        ))}
-      </div>
-    </div>
+      <button
+        onClick={toggleSideBar}
+        className={
+          "absolute bottom-0 left-0 rounded-full w-9 h-9 bg-info z-50 m-3 " +
+          (isSideBarOpen ? "none" : "")
+        }
+      >
+        <TiThMenu className="w-full" />
+      </button>
+    </>
   );
 };
 

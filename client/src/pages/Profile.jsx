@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axios, axi_url } from "../api/axios";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -13,9 +13,9 @@ export default function Profile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4050/api/user", { withCredentials: true })
+      .get(axi_url + "api/user", { withCredentials: true })
       .then((response) => {
-        setUser(response.data.data.user);
+        setUser(response.user);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -42,7 +42,7 @@ export default function Profile() {
     e.preventDefault();
     // Perform the axios request to update the user with editedUser data
     axios
-      .put("http://localhost:4050/api/user", editedUser, {
+      .put(axi_url + "api/user", editedUser, {
         withCredentials: true,
       })
       .then((response) => {

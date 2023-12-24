@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { axios } from "../api/axios";
+import { axios, axi_url } from "../api/axios";
 
 export default function Learn() {
   const { id } = useParams();
@@ -12,7 +12,7 @@ export default function Learn() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4050/api/learn/${id}`)
+      .get(`${axi_url}api/learn/${id}`)
       .then((response) => {
         setSet(response.set);
         setQuestions(response.set.questions);

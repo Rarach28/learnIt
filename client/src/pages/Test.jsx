@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { axios } from "../api/axios";
+import { axios, axi_url } from "../api/axios";
+
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { FaFlagCheckered } from "react-icons/fa";
 
 const timeBox = (s) => {
   const hours = Math.floor(s / 3600);
@@ -22,7 +25,7 @@ export const CreateTest = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4050/api/testRun/create/" + setNumber)
+      .get(axi_url + "api/testRun/create/" + setNumber)
       .then((response) => {
         navigate(`/sets/test/${response.runId}`);
       })
@@ -36,7 +39,7 @@ export const FinishTest = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4050/api/testRun/finish/" + runId)
+      .get(axi_url + "api/testRun/finish/" + runId)
       .then((response) => {
         console.log(response);
         navigate(`/sets/test/result/${runId}`);
@@ -52,7 +55,7 @@ export const ResultTest = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4050/api/testRun/result/" + runId)
+      .get(axi_url + "api/testRun/result/" + runId)
       .then((response) => {
         setTestResult(response.testRun);
       })
@@ -157,7 +160,7 @@ const Test = ({ username }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4050/api/testRun/" + setNumber)
+      .get(axi_url + "api/testRun/" + setNumber)
       .then((response) => {
         const set = response.testResult;
         const question = set.questions[set.currentQuestion ?? 0];
@@ -200,7 +203,7 @@ const Test = ({ username }) => {
     option.selected = !option.selected;
 
     axios
-      .post("http://localhost:4050/api/submitOption", {
+      .post(axi_url + "api/submitOption", {
         testRun_id: setInfo._id,
         option: option,
         questionIndex: currentQuestion.ind,
@@ -339,27 +342,27 @@ const Test = ({ username }) => {
           </div>
         )}
         {/* Buttons */}
-        <div className="mt-3">
+        <div className="mt-3 flex gap-3">
           <button
             disabled={currentQuestion.ind <= 0}
-            className="btn btn-accent w-1/3"
+            className="btn btn-accent grow"
             onClick={() =>
               setCurrentQuestion(setInfo.questions[currentQuestion.ind - 1])
             }
           >
-            Back
+            <IoIosArrowBack className="text-2xl ms-2" /> Back
           </button>
-          <button className="btn btn-accent w-1/3" onClick={openTestModal}>
-            Finish
+          <button className="btn btn-accent grow-0" onClick={openTestModal}>
+            <FaFlagCheckered className="text-2xl" />
           </button>
           <button
             disabled={setInfo.questions[currentQuestion.ind + 1] === undefined}
-            className="btn btn-accent w-1/3"
+            className="btn btn-accent grow"
             onClick={() =>
               setCurrentQuestion(setInfo.questions[currentQuestion.ind + 1])
             }
           >
-            Next
+            Next <IoIosArrowForward className="text-2xl ml-2" />
           </button>
         </div>
       </div>

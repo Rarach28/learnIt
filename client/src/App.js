@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import axios from "axios";
+import { axios, axi_url } from "./api/axios";
 import Logout from "./pages/Logout";
 import Sets from "./pages/Sets";
 import Test, { CreateTest, FinishTest, ResultTest } from "./pages/Test";
@@ -33,11 +33,7 @@ function AuthWrapper({ children }) {
       }
 
       try {
-        const { data } = await axios.post(
-          "http://localhost:4050",
-          {},
-          { withCredentials: true }
-        );
+        const data = await axios.post(axi_url, {}, { withCredentials: true });
 
         const { status, user } = data;
 
