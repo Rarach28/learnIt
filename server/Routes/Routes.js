@@ -19,9 +19,15 @@ const { userVerification } = require("../Middlewares/AuthMiddleware");
 
 const router = require("express").Router();
 
-router.post("/", userVerification);
-router.post("/signup", Signup);
-router.post("/login", Login);
+router.post("/api", userVerification);
+router.post("/api/test", (req, res) => {
+  res.send("test");
+});
+router.get("/api/test", (req, res) => {
+  res.send("test");
+});
+router.post("/api/signup", Signup);
+router.post("/api/login", Login);
 router.get("/api/sets", GetAll);
 
 router.get("/api/learn/:setId", Learn);

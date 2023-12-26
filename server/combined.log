@@ -19,3 +19,6 @@
 {"level":"info","message":"GET /api/sets","timestamp":"2023-12-24T13:25:57.455Z"}
 {"level":"info","message":"OPTIONS /","timestamp":"2023-12-24T13:27:36.916Z"}
 {"level":"info","message":"POST /","timestamp":"2023-12-24T13:27:37.058Z"}
+{"level":"info","message":"OPTIONS /signup","timestamp":"2023-12-24T14:53:03.378Z"}
+{"level":"info","message":"POST /signup","timestamp":"2023-12-24T14:53:03.446Z"}
+{"level":"info","message":"GET /api/sets","timestamp":"2023-12-24T14:53:05.980Z"}

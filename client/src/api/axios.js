@@ -45,7 +45,8 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-const axi_url = "https://wellick.cz:4050"; //"http://localhost:4050/";
+// const axi_url = "http://localhost:3001/";
+const axi_url = "https://37.46.208.164:3001/";
 
 axiosInstance.getSets = function () {
   return this.get(axi_url + "api/sets"); // replace with your API endpoint
