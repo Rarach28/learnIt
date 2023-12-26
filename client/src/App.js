@@ -34,7 +34,11 @@ function AuthWrapper({ children }) {
       }
 
       try {
-        const data = await axios.post(axi_url, {}, { withCredentials: true });
+        const data = await axios.post(
+          axi_url + "api",
+          {},
+          { withCredentials: true }
+        );
 
         const { status, user } = data;
 
