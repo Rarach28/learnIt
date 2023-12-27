@@ -22,6 +22,7 @@ const { userVerification } = require("../Middlewares/AuthMiddleware");
 const router = require("express").Router();
 
 router.post("/api", userVerification);
+router.get("/api", userVerification);
 router.post("/api/test", (req, res) => {
   res.send("test");
 });
