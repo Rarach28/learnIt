@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { axios, axi_url } from "./api/axios";
 import Logout from "./pages/Logout";
-import Sets from "./pages/Sets";
+import Sets, { SetAdd } from "./pages/Sets";
 import Test, { CreateTest, FinishTest, ResultTest } from "./pages/Test";
 import Learn from "./pages/Learn";
 import Profile from "./pages/Profile";
@@ -90,6 +90,36 @@ function App() {
           }
         />
         {/* LEARN */}
+        <Route
+          path="/sets/add/:id"
+          element={
+            <AuthWrapper>
+              {({ username }) => (
+                <>
+                  <Sidebar username={username} />
+                  <div className="w-full h-screen p-2 overflow-x-auto">
+                    <SetAdd />
+                  </div>
+                </>
+              )}
+            </AuthWrapper>
+          }
+        />
+        <Route
+          path="/sets/add/"
+          element={
+            <AuthWrapper>
+              {({ username }) => (
+                <>
+                  <Sidebar username={username} />
+                  <div className="w-full h-screen p-2 overflow-x-auto">
+                    <SetAdd />
+                  </div>
+                </>
+              )}
+            </AuthWrapper>
+          }
+        />
         <Route
           path="/sets/learn/:id"
           element={

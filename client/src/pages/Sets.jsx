@@ -1,19 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { axios } from "../api/axios";
+import { axi_url, axios } from "../api/axios";
 import { PiExamFill } from "react-icons/pi";
 import { TbCardsFilled } from "react-icons/tb";
 import { MdEditDocument } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, json, useNavigate, useParams } from "react-router-dom";
+import { FaFolderPlus } from "react-icons/fa";
+import { MdLibraryAdd } from "react-icons/md";
 
 const Sets = () => {
   const [sets, setSets] = useState([]);
   const [testModalOpen, setTestModalOpen] = useState(false);
   const [learnModalOpen, setLearnModalOpen] = useState(false);
   const [selectedSet, setSelectedSet] = useState(null);
+  const [user, setUser] = useState(null);
+  const [visibleAdd, setVisibleAdd] = useState(null);
 
   useEffect(() => {
     axios
-      .getSets()
+      .get(axi_url + "api/user", { withCredentials: true })
+      .then((response) => {
+        setUser(response.user);
+        return response.user;
+      })
+      .then((user) => {
+        // Set visibility here
+        setVisibleAdd(
+          user?.role_id &&
+            user?.role_id.length > 0 &&
+            user?.role_id.includes("add_set")
+        );
+
+        return axios.getSets();
+      })
       .then((response) => setSets(response.sets))
       .catch((error) => console.error(error));
   }, []);
@@ -42,6 +60,12 @@ const Sets = () => {
     <div key={topic._id} className="topic-section">
       <div className="font-semibold text-2xl mt-2">{topic.topic.name}</div>
       <p className="pb-2">{topic.topic.description}</p>
+      {visibleAdd && (
+        <Link to={`/sets/add/` + topic._id} className="btn">
+          <MdLibraryAdd />
+          Add Set
+        </Link>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         {topic.sets.map((set) => (
           <div
@@ -94,6 +118,14 @@ const Sets = () => {
 
   return (
     <div className="sets_page">
+      <div>
+        {visibleAdd && (
+          <Link to={`/sets/add`} className="btn">
+            <FaFolderPlus />
+            Add Topic
+          </Link>
+        )}
+      </div>
       {testModalOpen && selectedSet && (
         <dialog id="stats_modal" className="modal" open>
           <div className="modal-box">
@@ -112,7 +144,6 @@ const Sets = () => {
           </div>
         </dialog>
       )}
-
       {/* Learn Modal */}
       {learnModalOpen && selectedSet && (
         <dialog id="learn_modal" className="modal" open>
@@ -131,9 +162,80 @@ const Sets = () => {
           </div>
         </dialog>
       )}
-
       {sets.map((topic) => renderSets(topic))}
     </div>
+  );
+};
+
+export const SetAdd = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [jsonInput, setJsonInput] = useState("");
+  const [isValidJson, setIsValidJson] = useState(true);
+
+  useEffect(() => {
+    axios
+      .getSetByNumber(id || null)
+      .then((response) => {
+        console.log("rrr", response.set);
+        setJsonInput(JSON.stringify(response.set, null, 4));
+      })
+      .catch((error) => console.error(error));
+  }, [id]);
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setJsonInput(inputValue);
+
+    try {
+      JSON.parse(inputValue);
+      setIsValidJson(true);
+    } catch (error) {
+      setIsValidJson(false);
+    }
+  };
+
+  const handlePost = () => {
+    if (isValidJson) {
+      axios
+        .put(axi_url + "api/sets/add", {
+          id: id || null,
+          set: JSON.parse(jsonInput),
+        })
+        .then((response) => {
+          // Handle success, e.g., navigate to a different page
+          navigate("/success");
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle error, e.g., show an error message
+        });
+    } else {
+      // Handle invalid JSON case, e.g., show an error message
+      console.error("Invalid JSON");
+    }
+  };
+
+  return (
+    <>
+      {!isValidJson && (
+        <div className="badge badge-error h-12">Invalid JSON</div>
+      )}
+      {isValidJson && (
+        <button
+          onClick={handlePost}
+          disabled={!isValidJson}
+          className="btn btn-primary"
+        >
+          Post to API
+        </button>
+      )}
+      <textarea
+        className="w-full textarea textarea-bordered h-4/5 mt-2"
+        value={jsonInput}
+        onChange={handleInputChange}
+      />
+    </>
   );
 };
 

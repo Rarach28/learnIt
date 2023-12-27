@@ -4,6 +4,8 @@ const {
   GetUser,
   UpdateUser,
   GetAll,
+  GetSet,
+  SaveSet,
   StartTest,
   GetTest,
   SubmitOption,
@@ -28,7 +30,9 @@ router.get("/api/test", (req, res) => {
 });
 router.post("/api/signup", Signup);
 router.post("/api/login", Login);
+router.get("/api/sets/:id", GetSet);
 router.get("/api/sets", GetAll);
+router.put("/api/sets/add", SaveSet);
 
 router.get("/api/learn/:setId", Learn);
 router.get("/api/stats/:setId", Stats);

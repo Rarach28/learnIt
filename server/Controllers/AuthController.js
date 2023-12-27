@@ -168,6 +168,54 @@ module.exports.GetAll = async (req, res, next) => {
   }
 };
 
+module.exports.GetSet = async (req, res, next) => {
+  const setId = req.params.id;
+  try {
+    //get all sets
+    const set = await Set.findById(setId).lean();
+    res.status(201).json({
+      data: {
+        set: set,
+      },
+    });
+    next();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+module.exports.SaveSet = async (req, res, next) => {
+  const setId = req.body.id;
+  const set = req.body.set;
+
+  try {
+    if (setId) {
+      // Update existing set
+      const updatedSet = await Set.findByIdAndUpdate(setId, set, { new: true });
+      res.status(201).json({
+        data: {
+          set: updatedSet,
+          message: "Set updated",
+        },
+      });
+    } else {
+      // Create new set
+      const newSet = await Set.create(set);
+      res.status(201).json({
+        data: {
+          set: newSet,
+          message: "Set created",
+        },
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+};
+
 module.exports.FinishTest = async (req, res, next) => {
   const testRun_id = req.params.runId;
 
@@ -192,7 +240,7 @@ module.exports.FinishTest = async (req, res, next) => {
     });
   }
 
-  const set = setRes?.sets?.find((set) => set._id === testRun.set_id);
+  const set = setRes?.sets?.find((set) => set._id == testRun.set_id);
 
   // Initialize the result object
   const result = {
@@ -334,7 +382,7 @@ module.exports.StartTest = async (req, res) => {
       });
     }
 
-    const set = setRes?.sets?.find((set) => set._id === setId);
+    const set = setRes?.sets?.find((set) => set._id == setId);
 
     if (!set) {
       // If the set with the specified number is not found, return an error response
@@ -551,32 +599,32 @@ module.exports.Stats = async (req, res, next) => {
 // }
 // };
 
-module.exports.GetSet = async (req, res, next) => {
-  try {
-    // Get the set with the specified number
-    const set = await Set.findOne({
-      "sets.number": Number(req.params.setNumber),
-    });
+// module.exports.GetSet = async (req, res, next) => {
+//   try {
+//     // Get the set with the specified number
+//     const set = await Set.findOne({
+//       "sets.number": Number(req.params.setNumber),
+//     });
 
-    if (!set) {
-      // If set is not found, return an error response
-      return res.status(404).json({
-        data: {},
-        message: "Set not found for: " + req.params.setNumber,
-      });
-    }
+//     if (!set) {
+//       // If set is not found, return an error response
+//       return res.status(404).json({
+//         data: {},
+//         message: "Set not found for: " + req.params.setNumber,
+//       });
+//     }
 
-    // Return the found set
-    res.status(200).json({
-      data: {
-        set: set,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      data: {},
-      message: "Internal server error",
-    });
-  }
-};
+//     // Return the found set
+//     res.status(200).json({
+//       data: {
+//         set: set,
+//       },
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       data: {},
+//       message: "Internal server error",
+//     });
+//   }
+// };

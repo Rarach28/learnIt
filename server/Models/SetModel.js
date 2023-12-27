@@ -9,8 +9,8 @@ const optionSchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
-  attachment_id: {
-    type: Number,
+  attachment: {
+    type: String,
     default: null,
   },
   text: {
@@ -32,8 +32,8 @@ const questionSchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
-  attachment_id: {
-    type: Number,
+  attachment: {
+    type: String,
     default: null,
   },
   text: {
@@ -48,35 +48,57 @@ const setSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     default: mongoose.Types.ObjectId,
   },
-  topic_id: {
-    type: Number,
-    default: null,
+  topic: {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: mongoose.Types.ObjectId,
+    },
+    name: {
+      type: String,
+      default: null,
+    },
+    description: {
+      type: String,
+      default: null,
+    },
+    lang_id: {
+      type: Number,
+      default: 1,
+    },
   },
-  number: {
-    type: Number,
-    default: null,
-  },
-  name: {
-    type: String,
-    default: null,
-  },
-  description: {
-    type: String,
-    default: null,
-  },
-  mark_type_id: {
-    type: Number,
-    required: true,
-  },
-  showCorrectAnswers: {
-    type: Boolean,
-    default: null,
-  },
-  language_id: {
-    type: Number,
-    default: 1,
-  },
-  questions: [questionSchema],
+  sets: [
+    {
+      _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: mongoose.Types.ObjectId,
+      },
+      name: {
+        type: String,
+        default: null,
+      },
+      description: {
+        type: String,
+        default: null,
+      },
+      mark_type_id: {
+        type: Number,
+        required: true,
+      },
+      showCorrectAnswers: {
+        type: Boolean,
+        default: null,
+      },
+      language_id: {
+        type: Number,
+        default: 1,
+      },
+      attachment: {
+        type: String,
+        default: null,
+      },
+      questions: [questionSchema],
+    },
+  ],
 });
 
 const testRunoptionSchema = new mongoose.Schema({

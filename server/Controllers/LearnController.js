@@ -27,7 +27,7 @@ module.exports.Learn = async (req, res) => {
       });
     }
 
-    const set = setRes?.sets?.find((set) => set._id === setId);
+    const set = setRes?.sets?.find((set) => set._id == setId);
 
     if (!set) {
       // If the set with the specified number is not found, return an error response
@@ -36,6 +36,14 @@ module.exports.Learn = async (req, res) => {
         message: "2:Set not found for: " + setId,
       });
     }
+
+    // in each set, find the question and filter out the wrong options
+    const questions = set.questions.map((question) => {
+      const options = question.options.filter((option) => option.correct);
+      return { ...question, options };
+    });
+
+    set.questions = questions;
 
     res.status(200).json({
       data: {
