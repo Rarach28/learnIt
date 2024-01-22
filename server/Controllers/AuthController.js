@@ -1,8 +1,54 @@
 const { Set, TestRun } = require("../Models/SetModel");
 const User = require("../Models/UserModel");
 const { createSecretToken, verifySecretToken } = require("../util/SecretToken");
-// const bcrypt = require("bcryptjs");
 const bcrypt = require("bcrypt");
+
+module.exports.SaveSet = async (req, res, next) => {
+  const setData = req.body.set;
+
+  try {
+    const set = {
+      topic: {
+        name: setData.topic.name,
+        description: setData.topic.description,
+        lang_id: setData.topic.lang_id,
+      },
+      sets: setData.sets.map((s) => ({
+        name: s.name,
+        description: s.description,
+        mark_type_id: s.mark_type_id,
+        showCorrectAnswers: s.showCorrectAnswers,
+        language_id: s.language_id || 1,
+        attachment: s.attachment,
+        questions: s.questions.map((q) => ({
+          order: q.order,
+          attachment: q.attachment,
+          text: q.text,
+          options: q.options.map((opt) => ({
+            order: opt.order,
+            attachment: opt.attachment,
+            text: opt.text,
+            correct: opt.correct,
+          })),
+        })),
+      })),
+    };
+
+    const newSet = await Set.create(set);
+
+    res.status(201).json({
+      data: {
+        set: newSet,
+        message: "Set created",
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Internal Server Error: " + error,
+    });
+  }
+};
 
 module.exports.Signup = async (req, res, next) => {
   try {
@@ -184,37 +230,25 @@ module.exports.GetSet = async (req, res, next) => {
   }
 };
 
-module.exports.SaveSet = async (req, res, next) => {
-  const setId = req.body.id;
-  const set = req.body.set;
+// module.exports.SaveSet = async (req, res, next) => {
+//   const set = req.body.set; //text from textarea
 
-  try {
-    if (setId) {
-      // Update existing set
-      const updatedSet = await Set.findByIdAndUpdate(setId, set, { new: true });
-      res.status(201).json({
-        data: {
-          set: updatedSet,
-          message: "Set updated",
-        },
-      });
-    } else {
-      // Create new set
-      const newSet = await Set.create(set);
-      res.status(201).json({
-        data: {
-          set: newSet,
-          message: "Set created",
-        },
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      error: "Internal Server Error",
-    });
-  }
-};
+//   try {
+//     // Create new set
+//     const newSet = await Set.create(set);
+//     res.status(201).json({
+//       data: {
+//         set: newSet,
+//         message: "Set created",
+//       },
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       error: "Internal Server Error",
+//     });
+//   }
+// };
 
 module.exports.FinishTest = async (req, res, next) => {
   const testRun_id = req.params.runId;

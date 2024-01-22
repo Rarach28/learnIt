@@ -199,7 +199,7 @@ export const SetAdd = () => {
     if (isValidJson) {
       axios
         .put(axi_url + "api/sets/add", {
-          id: id || null,
+          // id: id || null,
           set: JSON.parse(jsonInput),
         })
         .then((response) => {

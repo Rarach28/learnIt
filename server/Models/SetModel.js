@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const optionSchema = new mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(), // Use a function to generate a new ObjectId
   },
   order: {
     type: Number,
@@ -26,7 +26,7 @@ const optionSchema = new mongoose.Schema({
 const questionSchema = new mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(),
   },
   order: {
     type: Number,
@@ -46,12 +46,12 @@ const questionSchema = new mongoose.Schema({
 const setSchema = new mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(),
   },
   topic: {
     _id: {
       type: mongoose.Schema.Types.ObjectId,
-      default: mongoose.Types.ObjectId,
+      default: () => new mongoose.Types.ObjectId(),
     },
     name: {
       type: String,
@@ -70,7 +70,7 @@ const setSchema = new mongoose.Schema({
     {
       _id: {
         type: mongoose.Schema.Types.ObjectId,
-        default: mongoose.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
       },
       name: {
         type: String,
