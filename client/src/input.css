@@ -19,7 +19,7 @@
 
 
 .btn-secondary {
-    @apply btn border-0 bg-gray-100 hover:bg-gray-200;
+    @apply bg-secondary hover:border-l-indigo-400 !text-black;
 }
 
 .btn-danger {

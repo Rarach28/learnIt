@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { axios, axi_url } from "../api/axios";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 export default function Stats() {
   const [stats, setStats] = useState({});
@@ -17,7 +19,22 @@ export default function Stats() {
 
   console.log("stats", stats);
   if (!stats || stats.length === 0) {
-    return <div>Loading...</div>;
+    return (
+      <div role="alert" className="alert">
+        <IoInformationCircleOutline className="text-info text-2xl" />
+        <span>No Records Yet</span>
+        <div>
+          {
+            <Link
+              to={`/sets/test/create/${id}`}
+              className="btn btn-sm btn-primary"
+            >
+              Go to Test
+            </Link>
+          }
+        </div>
+      </div>
+    );
   }
 
   //   return JSON.stringify(stats);
@@ -30,6 +47,7 @@ export default function Stats() {
             <th>Date</th>
             <th>Duration</th>
             <th>Score</th>
+            <th>Detail</th>
           </tr>
         </thead>
         <tbody>
@@ -39,6 +57,16 @@ export default function Stats() {
                 <td>{new Date(stat.start).toLocaleDateString()}</td>
                 <td>{formatDuration(stat.start, stat.finish)}</td>
                 <td>{stat.result ? stat.result.score * 100 + "%" : "-"}</td>
+                <td>
+                  {stat.finish && (
+                    <Link
+                      to={`/sets/test/result/${stat._id}`}
+                      className="btn btn-sm btn-primary"
+                    >
+                      Detail
+                    </Link>
+                  )}
+                </td>
               </tr>
             ))}
         </tbody>
@@ -49,10 +77,10 @@ export default function Stats() {
 
 // Function to format duration
 function formatDuration(start, finish) {
-  const durationInSeconds = Math.floor((finish - start) / 1000);
-  const hours = Math.floor(durationInSeconds / 3600);
-  const minutes = Math.floor((durationInSeconds - hours * 3600) / 60);
-  const seconds = durationInSeconds - hours * 3600 - minutes * 60;
+  const duration = Math.floor((finish - start) / 1000);
+  // const hours = String(Math.floor(duration / 3600)).padStart(2, "0");
+  const minutes = String(Math.floor((duration % 3600) / 60)).padStart(2, "0");
+  const seconds = String(duration % 60).padStart(2, "0");
 
-  return `${hours}h ${minutes}m ${seconds}s`;
+  return finish ? `${minutes}:${seconds}` : "-";
 }

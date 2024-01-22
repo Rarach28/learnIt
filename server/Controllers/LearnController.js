@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 
 module.exports.Learn = async (req, res) => {
   const setId = req.params.setId;
+  const randomOrder = req.params.randomOrder;
 
   try {
     const token = req.cookies.token;
@@ -42,7 +43,9 @@ module.exports.Learn = async (req, res) => {
       const options = question.options.filter((option) => option.correct);
       return { ...question, options };
     });
-
+    if (randomOrder == 1) {
+      questions.sort(() => Math.random() - 0.5);
+    }
     set.questions = questions;
 
     res.status(200).json({

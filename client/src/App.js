@@ -121,7 +121,7 @@ function App() {
           }
         />
         <Route
-          path="/sets/learn/:id"
+          path="/sets/learn/:id/:randomOrder"
           element={
             <AuthWrapper>
               {({ username }) => (
@@ -135,6 +135,7 @@ function App() {
             </AuthWrapper>
           }
         />
+
         {/* TEST */}
         <Route
           path="/sets/test/create/:setNumber"

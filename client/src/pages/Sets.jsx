@@ -6,6 +6,8 @@ import { MdEditDocument } from "react-icons/md";
 import { Link, json, useNavigate, useParams } from "react-router-dom";
 import { FaFolderPlus } from "react-icons/fa";
 import { MdLibraryAdd } from "react-icons/md";
+import { FaShuffle } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 
 const Sets = () => {
   const [sets, setSets] = useState([]);
@@ -129,35 +131,55 @@ const Sets = () => {
       {testModalOpen && selectedSet && (
         <dialog id="stats_modal" className="modal" open>
           <div className="modal-box">
+            <button
+              className="btn !absolute top-[10px] right-[10px] p-1"
+              onClick={closeTestModal}
+            >
+              <IoMdClose className="text-2xl w-full" />
+            </button>
             <h3 className="font-bold text-lg">Take a Test</h3>
             <p className="py-4">
               Take a test with total of {selectedSet.questions.length} questions
             </p>
             <div className="modal-action">
-              <Link to={`/sets/test/create/${selectedSet._id}`} className="btn">
+              <Link
+                to={`/sets/test/create/${selectedSet._id}`}
+                className="btn btn-primary"
+              >
                 Go to Test
               </Link>
-              <button className="btn" onClick={closeTestModal}>
-                Close
-              </button>
             </div>
           </div>
         </dialog>
       )}
       {/* Learn Modal */}
       {learnModalOpen && selectedSet && (
-        <dialog id="learn_modal" className="modal" open>
+        <dialog id="learn_modal" className="modal w-full" open>
           <div className="modal-box">
+            <button
+              className="btn !absolute top-[10px] right-[10px] p-1"
+              onClick={closeTestModal}
+            >
+              <IoMdClose className="text-2xl w-full" />
+            </button>
             <h3 className="font-bold text-lg">Learn!</h3>
             <p className="py-4">{selectedSet.description}</p>
 
-            <div className="modal-action">
-              <Link to={`/sets/learn/${selectedSet._id}`} className="btn">
-                Go to Flash Cards
+            <div className="modal-action w-full grid grid-cols-2 gap-1">
+              <Link
+                to={`/sets/learn/${selectedSet._id}/0`}
+                className="btn w-full h-full p-2 btn-primary "
+              >
+                <PiExamFill className="text-2xl mx-2" />
+                <span className="">Go to Flash Cards</span>
               </Link>
-              <button className="btn" onClick={closeLearnModal}>
-                Close
-              </button>
+              <Link
+                to={`/sets/learn/${selectedSet._id}/1`}
+                className="btn w-full h-full p-2 btn-accent "
+              >
+                <FaShuffle className="text-2xl mx-2 " />
+                <span className="">Random Order Cards</span>
+              </Link>
             </div>
           </div>
         </dialog>

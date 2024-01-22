@@ -35,7 +35,7 @@ router.get("/api/sets/:id", GetSet);
 router.get("/api/sets", GetAll);
 router.put("/api/sets/add", SaveSet);
 
-router.get("/api/learn/:setId", Learn);
+router.get("/api/learn/:setId/:randomOrder", Learn);
 router.get("/api/stats/:setId", Stats);
 
 router.get("/api/testRun/create/:setId", StartTest);

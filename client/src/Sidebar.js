@@ -9,7 +9,7 @@ import {
   useMatch,
   useResolvedPath,
 } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { userMiddleware } from "../../middleware/User";
 
 import { IoIosStats } from "react-icons/io";
@@ -71,13 +71,21 @@ function loadSbItems() {
 }
 
 const Sidebar = ({ username, Logout }) => {
-  //   const navigation = useNavigation();
   const { sbItems, sbItemsBottom } = loadSbItems();
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+
+  // Retrieve the initial state from local storage or default to true
+  const initialIsSideBarOpen =
+    JSON.parse(localStorage.getItem("isSideBarOpen")) ?? true;
+  const [isSideBarOpen, setIsSideBarOpen] = useState(initialIsSideBarOpen);
 
   const toggleSideBar = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
+
+  // Update local storage whenever isSideBarOpen changes
+  useEffect(() => {
+    localStorage.setItem("isSideBarOpen", JSON.stringify(isSideBarOpen));
+  }, [isSideBarOpen]);
 
   const SideBarItem = ({ icon, children, to = "#", nested = [] }) => {
     const fullCurrentPath = useResolvedPath(to);
@@ -171,7 +179,7 @@ const Sidebar = ({ username, Logout }) => {
       <div
         className={
           "top-0 left-0 h-screen w-16 m-0 flex flex-col shadow-lg justify-between pb-2 border-r-2 " +
-          (isSideBarOpen ? "" : "none")
+          (isSideBarOpen ? "" : "hidden")
         }
       >
         <div>
@@ -196,7 +204,7 @@ const Sidebar = ({ username, Logout }) => {
         onClick={toggleSideBar}
         className={
           "absolute bottom-0 left-0 rounded-full w-9 h-9 bg-info z-50 m-3 " +
-          (isSideBarOpen ? "none" : "")
+          (isSideBarOpen ? "hidden" : "")
         }
       >
         <TiThMenu className="w-full" />

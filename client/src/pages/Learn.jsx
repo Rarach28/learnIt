@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { axios, axi_url } from "../api/axios";
 
 export default function Learn() {
-  const { id } = useParams();
+  const { id, randomOrder } = useParams();
   const navigate = useNavigate();
   const [set, setSet] = useState(null);
   const [questions, setQuestions] = useState([]);
@@ -12,13 +12,13 @@ export default function Learn() {
 
   useEffect(() => {
     axios
-      .get(`${axi_url}api/learn/${id}`)
+      .get(`${axi_url}api/learn/${id}/${randomOrder}`)
       .then((response) => {
         setSet(response.set);
         setQuestions(response.set.questions);
       })
       .catch((error) => console.error(error));
-  }, [id]);
+  }, [id, randomOrder]);
 
   const handleNextCard = () => {
     setShowAnswer(false);
@@ -61,7 +61,7 @@ export default function Learn() {
   const renderCard = () => {
     const question = questions[cardIndex];
     return (
-      <div className="card bg-base-100 shadow-xl w-full justify-self-center md:col-start-2 md:col-end-12">
+      <div className="card bg-base-100 shadow-xl w-full justify-self-center md:col-start-2 md:col-end-12 mb-8">
         <div className="card-body">
           <h2 className="card-title">{question.text}</h2>
           <div className="card-answer">

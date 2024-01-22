@@ -13,24 +13,6 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          // primary: "#007fff",
-
-          // secondary: "#60a5fa",
-
-          // accent: "#7dd3fc",
-
-          // neutral: "#2f2a26",
-
-          // "base-100": "#242424",
-
-          // info: "#00d5ff",
-
-          // success: "#00dc01",
-
-          // warning: "#ffb200",
-
-          // error: "#ff6378",
-
           primary: "#9400ff",
 
           secondary: "#8b5cf6",
@@ -48,15 +30,6 @@ module.exports = {
           warning: "#fbbf24",
 
           error: "#fa0809",
-          // primary: "#064e3b",
-          // secondary: "#166534",
-          // accent: "#fbbf24",
-          // neutral: "#374151",
-          // "base-100": "#1f2626",
-          // info: "#00c4ff",
-          // success: "#00ac00",
-          // warning: "#f59e0b",
-          // error: "#f43f5e",
         },
         trempi: {
           primary: "#00a2bc",
@@ -85,7 +58,7 @@ module.exports = {
           success: "#00ac00",
           warning: "#f59e0b",
           error: "#f43f5e",
-          accent: "f8b000",
+          accent: "#f8b000",
         },
       },
       "light",

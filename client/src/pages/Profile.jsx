@@ -57,10 +57,12 @@ export default function Profile() {
   }
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center justify-center">
-          <div className="font-bold text-4xl mt-2">Profile</div>
+    <div className="mx-auto">
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full flex flex-col items-center justify-center">
+          <div className="w-full font-semibold text-4xl text-start">
+            Profile
+          </div>
           {editMode ? (
             <p className="pb-2">Editing your profile</p>
           ) : (

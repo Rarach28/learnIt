@@ -81,9 +81,29 @@ export const ResultTest = () => {
 
   return (
     <div>
-      <h1>Result</h1>
+      <div className="flex justify-between mt-2">
+        <span className="font-semibold text-4xl">Result</span>
+        <span>
+          {
+            <Link
+              to={`/sets/stats/${testResult.set_id}`}
+              className="btn btn-sm btn-primary"
+            >
+              See All Statistics
+            </Link>
+          }
+          {
+            <Link
+              to={`/sets/test/create/${testResult.set_id}`}
+              className="btn btn-sm btn-primary ml-2"
+            >
+              Take Test
+            </Link>
+          }
+        </span>
+      </div>
       {/* grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 */}
-      <div className="flex">
+      <div className="flex mt-2">
         {/* Score Box */}
         <div className="bg-neutral p-2 rounded w-fit h-26">
           <div className="w-full mb-2 font-semibold">Score</div>
