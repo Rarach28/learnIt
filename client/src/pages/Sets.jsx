@@ -158,11 +158,14 @@ const Sets = () => {
           <div className="modal-box">
             <button
               className="btn !absolute top-[10px] right-[10px] p-1"
-              onClick={closeTestModal}
+              onClick={closeLearnModal}
             >
               <IoMdClose className="text-2xl w-full" />
             </button>
-            <h3 className="font-bold text-lg">Learn!</h3>
+            <span className=" text-lg">
+              Learn <span className="font-semibold">{selectedSet.name}</span>{" "}
+              with FlashCards
+            </span>
             <p className="py-4">{selectedSet.description}</p>
 
             <div className="modal-action w-full grid grid-cols-2 gap-1">
@@ -171,14 +174,14 @@ const Sets = () => {
                 className="btn w-full h-full p-2 btn-primary "
               >
                 <PiExamFill className="text-2xl mx-2" />
-                <span className="">Go to Flash Cards</span>
+                <span className="">Go in Order</span>
               </Link>
               <Link
                 to={`/sets/learn/${selectedSet._id}/1`}
                 className="btn w-full h-full p-2 btn-accent "
               >
                 <FaShuffle className="text-2xl mx-2 " />
-                <span className="">Random Order Cards</span>
+                <span className="">Shuffle Cards</span>
               </Link>
             </div>
           </div>

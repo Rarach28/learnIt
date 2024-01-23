@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { axios, axi_url } from "../api/axios";
+import { BiSolidShow, BiHide } from "react-icons/bi";
 
 export default function Learn() {
   const { id, randomOrder } = useParams();
@@ -46,14 +47,19 @@ export default function Learn() {
     return (
       <ul
         className={
-          "list-disc ml-3 " + (showAnswer ? "opacity-100" : "opacity-0")
+          "list-disc pl-3 " + (showAnswer ? "opacity-100" : "opacity-0")
         }
       >
-        {options.map((option) => (
-          <li key={option._id} className={`card-subtitle`}>
-            {option.text}
-          </li>
-        ))}
+        {options.length === 0 ||
+        (options.length === 1 && options[0].text == "") ? (
+          <li className={`card-subtitle text-lg`}>~ No Options ~</li>
+        ) : (
+          options.map((option) => (
+            <li key={option._id} className={`card-subtitle text-lg`}>
+              {option.text}
+            </li>
+          ))
+        )}
       </ul>
     );
   };
@@ -63,18 +69,10 @@ export default function Learn() {
     return (
       <div className="card bg-base-100 shadow-xl w-full justify-self-center md:col-start-2 md:col-end-12 mb-8">
         <div className="card-body">
-          <h2 className="card-title">{question.text}</h2>
-          <div className="card-answer">
+          <h2 className="card-title border-b pb-1 ">{question.text}</h2>
+          <div className="card-answer max-h-[50vh] overflow-auto ml-1">
             {renderCardOptions(question.options)}
           </div>
-        </div>
-        <div className="card-actions">
-          <button
-            className=" w-full btn btn-primary"
-            onClick={handleShowAnswer}
-          >
-            {showAnswer ? "Hide Answer" : "Show Answer"}
-          </button>
         </div>
       </div>
     );
@@ -88,13 +86,29 @@ export default function Learn() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-2 justify-center">
         {set && renderCard()}
       </div>
-      <div className="flex justify-between items-center mt-4">
-        <button className="btn btn-primary" onClick={handlePrevCard}>
-          Previous Card
-        </button>
-        <button className="btn btn-primary" onClick={handleNextCard}>
-          Next Card
-        </button>
+      <div className="fixed bottom-5 right-5 pe-2">
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            className=" w-full col-span-2 btn btn-accent z-[900000]"
+            onClick={handleShowAnswer}
+          >
+            {showAnswer ? (
+              <>
+                <BiHide className="me-1" /> Hide Answer
+              </>
+            ) : (
+              <>
+                <BiSolidShow className="me-1" /> Show Answer
+              </>
+            )}
+          </button>
+          <button className="btn btn-primary" onClick={handlePrevCard}>
+            Previous Card
+          </button>
+          <button className="btn btn-primary" onClick={handleNextCard}>
+            Next Card
+          </button>
+        </div>
       </div>
     </div>
   );
