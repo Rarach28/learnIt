@@ -22,11 +22,18 @@ axiosInstance.interceptors.response.use(
   (response) => {
     // Check the response status and remove JWT token if necessary
     console.log("Response:", response.data);
-    if (response.data && response.data.status == 401) {
+    if (
+      (response.data && response.data.status == 401) ||
+      response.status == 401
+    ) {
       localStorage.removeItem("jwt_token");
       window.location.href = "/auth/login";
     }
-    if (response.data && response.data.status == 403) {
+    if (
+      (response.data && response.data.status == 403) ||
+      response.status == 403
+    ) {
+      localStorage.removeItem("jwt_token");
       window.location.href = "/auth/login";
       return;
     }
