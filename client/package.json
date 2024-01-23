@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && postcss ./src/input.css -o ./build/output.css",
+    "build": "react-scripts build && tailwindcss ./src/input.css -o ./build/output.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
