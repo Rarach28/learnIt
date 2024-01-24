@@ -43,7 +43,7 @@ h1 {
 }
 
 .sidebar-item.active{
-    @apply rounded-3xl hover:border-purple-600 border-l-4;
+    @apply rounded-3xl hover:border-cyan-700 border-l-4;
     border-left: 3px solid white !important;
 }
 
@@ -57,7 +57,7 @@ h1 {
 }
 
 .sidebar-item:hover,.sidebar-item:has(.sidebar-tooltipItem.active) {
-    @apply rounded-3xl hover:border-purple-600 border-l-4;
+    @apply rounded-3xl hover:border-cyan-700 border-l-4;
     border-left: 3px solid white;
 }
 

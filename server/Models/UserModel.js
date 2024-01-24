@@ -55,8 +55,24 @@ const roleSchema = new mongoose.Schema({
     default: null,
   },
 });
+
+const featureSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    default: null,
+  },
+  description: {
+    type: String,
+    default: null,
+  },
+});
+
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+const Features = mongoose.model("Features", featureSchema);
+module.exports = {
+  User,
+  Features,
+};
 
 // const UserPermission = mongoose.model("UserPermission", userPermissionSchema);
 // const Role = mongoose.model("Role", roleSchema);

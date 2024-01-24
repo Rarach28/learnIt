@@ -243,6 +243,18 @@ export const SetAdd = () => {
 
   return (
     <>
+      <div className="mb-3">
+        <div className="inline-block w-6 h-6 bg-primary"></div>
+        <div className="inline-block w-6 h-6 bg-primary-dark"></div>
+        <div className="inline-block w-6 h-6 bg-secondary"></div>
+        <div className="inline-block w-6 h-6 bg-accent"></div>
+        <div className="inline-block w-6 h-6 bg-neutral"></div>
+        <div className="inline-block w-6 h-6 bg-base-100"></div>
+        <div className="inline-block w-6 h-6 bg-info"></div>
+        <div className="inline-block w-6 h-6 bg-success"></div>
+        <div className="inline-block w-6 h-6 bg-warning"></div>
+        <div className="inline-block w-6 h-6 bg-error"></div>
+      </div>
       {!isValidJson && (
         <div className="badge badge-error h-12">Invalid JSON</div>
       )}

@@ -17,20 +17,23 @@ const {
 const { Learn } = require("../Controllers/LearnController");
 const { userVerification } = require("../Middlewares/AuthMiddleware");
 
-// const { GetAll } = require("../Controllers/SetController");
-
 const router = require("express").Router();
+
+router.post("/api/signup", Signup);
+router.post("/api/login", Login);
 
 router.post("/api", userVerification);
 router.get("/api", userVerification);
+
+// SECURE ROUTES
+
 router.post("/api/test", (req, res) => {
   res.send("test");
 });
 router.get("/api/test", (req, res) => {
   res.send("test");
 });
-router.post("/api/signup", Signup);
-router.post("/api/login", Login);
+
 router.get("/api/sets/:id", GetSet);
 router.get("/api/sets", GetAll);
 router.put("/api/sets/add", SaveSet);

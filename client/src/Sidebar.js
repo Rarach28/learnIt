@@ -70,7 +70,7 @@ function loadSbItems() {
   return { sbItems, sbItemsBottom };
 }
 
-const Sidebar = ({ username, Logout }) => {
+const Sidebar = () => {
   const { sbItems, sbItemsBottom } = loadSbItems();
 
   // Retrieve the initial state from local storage or default to true
@@ -195,8 +195,11 @@ const Sidebar = ({ username, Logout }) => {
               {name}
             </SideBarItem>
           ))}
-          <button className="bg-primary w-full" onClick={toggleSideBar}>
-            <TiThMenu className="w-full" />
+          <button
+            className="btn btn-primary btn-xs w-full mt-1 mb-2"
+            onClick={toggleSideBar}
+          >
+            <TiThMenu className="w-full text-lg" />
           </button>
         </div>
       </div>
@@ -207,7 +210,7 @@ const Sidebar = ({ username, Logout }) => {
           (isSideBarOpen ? "hidden" : "")
         }
       >
-        <TiThMenu className="w-full" />
+        <TiThMenu className="w-full text-lg" />
       </button>
     </>
   );

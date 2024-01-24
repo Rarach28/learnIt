@@ -55,10 +55,12 @@ module.exports = {
         },
         mybusiness: {
           ...require("daisyui/src/theming/themes")["business"],
+          // "primary-dark": "#13375b",
           success: "#00ac00",
           warning: "#f59e0b",
           error: "#f43f5e",
-          accent: "#f8b000",
+          accent: "#097ea2",
+          // accent: "#f8b000",
         },
       },
       "light",

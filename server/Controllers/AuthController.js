@@ -1,5 +1,5 @@
 const { Set, TestRun } = require("../Models/SetModel");
-const User = require("../Models/UserModel");
+const { User, Features } = require("../Models/UserModel");
 const { createSecretToken, verifySecretToken } = require("../util/SecretToken");
 const bcrypt = require("bcrypt");
 
@@ -520,6 +520,15 @@ module.exports.GetTest = async (req, res) => {
       message: "Internal server error",
     });
   }
+};
+
+module.exports.Features = async (req, res) => {
+  const f = await Features.find().lean();
+  res.status(200).json({
+    data: {
+      features: f,
+    },
+  });
 };
 
 module.exports.Stats = async (req, res, next) => {

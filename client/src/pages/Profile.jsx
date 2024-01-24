@@ -46,7 +46,7 @@ export default function Profile() {
         withCredentials: true,
       })
       .then((response) => {
-        setUser(response.data.data.user);
+        setUser(response.user);
         setEditMode(false);
       })
       .catch((error) => console.error(error));

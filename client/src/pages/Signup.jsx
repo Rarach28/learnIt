@@ -57,71 +57,64 @@ const Signup = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-16 p-6 bg-white rounded-md shadow-md h-1/2 min-h-[270px]">
-      <h2 className="text-2xl font-bold mb-4">Signup Account</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-semibold text-gray-600"
+    <div className="flex flex-col items-center justify-center w-screen h-screen">
+      <div className="bg-primary rounded-md mb-32 md:mb-0  shadow-md max-w-md mx-auto p-6  h-1/2 min-h-[420px]">
+        <h2 className="text-2xl font-bold mb-4">Signup Account</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-semibold ">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              placeholder="Enter your email"
+              onChange={handleOnChange}
+              className="w-full p-2 border rounded-md mt-1"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="username" className="block text-sm font-semibold ">
+              Username
+            </label>
+            <input
+              type="text"
+              name="username"
+              value={username}
+              placeholder="Enter your username"
+              onChange={handleOnChange}
+              className="w-full p-2 border rounded-md mt-1"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-sm font-semibold ">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              placeholder="Enter your password"
+              onChange={handleOnChange}
+              className="w-full p-2 border rounded-md mt-1"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full btn btn-accent p-2 rounded-md mt-2"
           >
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            placeholder="Enter your email"
-            onChange={handleOnChange}
-            className="w-full p-2 border rounded-md mt-1"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="username"
-            className="block text-sm font-semibold text-gray-600"
-          >
-            Username
-          </label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            placeholder="Enter your username"
-            onChange={handleOnChange}
-            className="w-full p-2 border rounded-md mt-1"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="password"
-            className="block text-sm font-semibold text-gray-600"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Enter your password"
-            onChange={handleOnChange}
-            className="w-full p-2 border rounded-md mt-1"
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-        >
-          Submit
-        </button>
-        <span className="block mt-2">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-500">
-            Login
-          </Link>
-        </span>
-      </form>
-      <ToastContainer />
+            Submit
+          </button>
+          <span className="block mt-2">
+            Already have an account?{" "}
+            <Link to="/login" className="badge p-3">
+              Login
+            </Link>
+          </span>
+        </form>
+        <ToastContainer />
+      </div>
     </div>
   );
 };

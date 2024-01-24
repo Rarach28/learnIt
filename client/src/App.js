@@ -23,13 +23,12 @@ import Stats from "./pages/Stats";
 function AuthWrapper({ children }) {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
-  const [username, setUsername] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const verifyCookie = async () => {
       if (!cookies.token) {
-        console.log("No cookie found");
-        // navigate("/login");
+        navigate("/login");
         return;
       }
 
@@ -40,14 +39,10 @@ function AuthWrapper({ children }) {
           { withCredentials: true }
         );
 
-        const { status, user } = data;
-
-        setUsername(user);
+        const { status } = data;
 
         if (status) {
-          // toast(`Hello ${user}`, {
-          //   position: "top-right",
-          // });
+          setIsAuthenticated(true);
         } else {
           removeCookie("token");
           navigate("/login");
@@ -62,11 +57,21 @@ function AuthWrapper({ children }) {
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
 
-  const Logout = () => {
-    navigate("/logout");
-  };
+  // Render children only if authenticated
+  return isAuthenticated ? children : null;
+}
 
-  return children({ username, Logout });
+function Layout({ children }) {
+  return (
+    <>
+      <AuthWrapper>
+        <>
+          <Sidebar />
+          <div className="w-full h-screen p-2 overflow-x-auto">{children}</div>
+        </>
+      </AuthWrapper>
+    </>
+  );
 }
 
 function App() {
@@ -77,62 +82,34 @@ function App() {
         <Route
           path="/sets"
           element={
-            <AuthWrapper>
-              {({ username, Logout }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <Sets username={username} />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <Sets />
+            </Layout>
           }
         />
         {/* LEARN */}
         <Route
           path="/sets/add/:id"
           element={
-            <AuthWrapper>
-              {({ username }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <SetAdd />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <SetAdd />
+            </Layout>
           }
         />
         <Route
           path="/sets/add/"
           element={
-            <AuthWrapper>
-              {({ username }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <SetAdd />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <SetAdd />
+            </Layout>
           }
         />
         <Route
           path="/sets/learn/:id/:randomOrder"
           element={
-            <AuthWrapper>
-              {({ username }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <Learn username={username} />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <Learn />
+            </Layout>
           }
         />
 
@@ -140,91 +117,49 @@ function App() {
         <Route
           path="/sets/test/create/:setNumber"
           element={
-            <AuthWrapper>
-              {({ username, Logout }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <CreateTest username={username} />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <CreateTest />
+            </Layout>
           }
         />
         <Route
           path="/sets/test/finish/:runId"
           element={
-            <AuthWrapper>
-              {({ username, Logout }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <FinishTest username={username} />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <FinishTest />
+            </Layout>
           }
         />
         <Route
           path="/sets/test/result/:runId"
           element={
-            <AuthWrapper>
-              {({ username, Logout }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <ResultTest username={username} />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <ResultTest />
+            </Layout>
           }
         />
         <Route
           path="/sets/test/:setNumber"
           element={
-            <AuthWrapper>
-              {({ username, Logout }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <Test username={username} />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <Test />
+            </Layout>
           }
         />
         <Route
           path="/sets/stats/:id"
           element={
-            <AuthWrapper>
-              {({ username }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <Stats />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <Stats />
+            </Layout>
           }
         />
         <Route
           path="/profile"
           element={
-            <AuthWrapper>
-              {({ username, Logout }) => (
-                <>
-                  <Sidebar username={username} />
-                  <div className="w-full h-screen p-2 overflow-x-auto">
-                    <Profile />
-                  </div>
-                </>
-              )}
-            </AuthWrapper>
+            <Layout>
+              <Profile />
+            </Layout>
           }
         />
 
